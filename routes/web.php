@@ -79,7 +79,7 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::post('/admin/cards/add', [AdminController::class, 'addCard'])->name('admin.cards.add');
     Route::post('/admin/cards/{id}/update', [AdminController::class, 'updateCard'])->name('admin.cards.update');
     Route::post('/admin/cards/{id}/delete', [AdminController::class, 'deleteCard'])->name('admin.cards.delete');
-    Route::post('/admin/news/update', [AdminController::class, 'updateNews'])->name('admin.news.update');
+    Route::post('/admin/news/update', [AdminController::class, 'updateNews'])->name('admin.news.update.settings');
     Route::post('/admin/news/store', [AdminController::class, 'storeNews'])->name('admin.news.store');
     Route::get('/admin/news/{id}/edit', [AdminController::class, 'editNews'])->name('admin.news.edit');
     Route::put('/admin/news/{id}/update', [AdminController::class, 'updateNewsData'])->name('admin.news.update');
@@ -90,17 +90,13 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::post('/admin/gallery/{id}/update', [AdminController::class, 'updateGallery'])->name('admin.gallery.update');
     Route::post('/admin/gallery/{id}/toggle-carousel', [AdminController::class, 'toggleCarousel'])->name('admin.gallery.toggleCarousel');
     Route::post('/admin/gallery/publish-to-index', [AdminController::class, 'publishGalleryToIndex'])->name('admin.gallery.publishToIndex');
-    Route::delete('/admin/gallery/{id}', [AdminController::class, 'deleteGallery'])->name('admin.gallery.delete');
     Route::post('/admin/content/update', [AdminController::class, 'updateContentData'])->name('admin.content.update');
     Route::post('/admin/card/store', [AdminController::class, 'storeCard'])->name('admin.card.store');
     Route::get('/admin/card/{id}', [AdminController::class, 'getCard'])->name('admin.card.get');
     Route::post('/admin/card/{id}/update', [AdminController::class, 'updateCardData'])->name('admin.card.update');
-    Route::put('/admin/card/{id}/update', [AdminController::class, 'updateCardData'])->name('admin.card.update.put');
+    Route::put('/admin/card/{id}/update', [AdminController::class, 'updateCardData'])->name('admin.card.update.put');    
     Route::delete('/admin/card/{id}', [AdminController::class, 'deleteCardData'])->name('admin.card.delete');
-    Route::delete('/admin/gallery/{id}', function($id) {
-        \App\Models\Gallery::findOrFail($id)->delete();
-        return redirect()->back()->with('success', 'Gallery berhasil dihapus!');
-    })->name('admin.gallery.delete');
+    Route::delete('/admin/gallery/{id}', [AdminController::class, 'deleteGallery'])->name('admin.gallery.delete');
     Route::get('/admin/tentang', [AdminController::class, 'tentang'])->name('admin.tentang');
     Route::post('/admin/tentang/update', [AdminController::class, 'updateTentang'])->name('admin.tentang.update');
 });

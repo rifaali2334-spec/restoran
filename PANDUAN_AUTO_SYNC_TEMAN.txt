@@ -1,0 +1,95 @@
+CARA PASANG AUTO-SYNC FOTO DI HOSTING
+======================================
+
+LANGKAH 1 - Upload file AutoSyncFoto.php
+-----------------------------------------
+Upload file AutoSyncFoto.php ke folder:
+  /public_html/abi/app/Http/Controllers/
+
+Jadi lokasinya:
+  /public_html/abi/app/Http/Controllers/AutoSyncFoto.php
+
+
+LANGKAH 2 - Edit 4 Controller berikut
+---------------------------------------
+Tambahkan "use AutoSyncFoto;" di dalam class, lalu panggil
+"$this->syncFotoKePublic();" setelah setiap upload foto.
+
+============================================================
+1. GalleryController.php
+   File: app/Http/Controllers/Admin/GalleryController.php
+============================================================
+
+Tambah "use AutoSyncFoto;" setelah baris "class GalleryController extends Controller":
+
+    class GalleryController extends Controller
+    {
+        use AutoSyncFoto;   // <-- TAMBAHKAN INI
+
+Tambah "$this->syncFotoKePublic();" di method store() dan update():
+
+    // Di method store(), sebelum return redirect:
+    $this->syncFotoKePublic();
+    return redirect()->route('admin.galleries.index')->with('success', ...);
+
+    // Di method update(), sebelum return redirect:
+    $this->syncFotoKePublic();
+    return redirect()->route('admin.galleries.index')->with('success', ...);
+
+
+============================================================
+2. NewsController.php
+   File: app/Http/Controllers/Admin/NewsController.php
+============================================================
+
+    class NewsController extends Controller
+    {
+        use AutoSyncFoto;   // <-- TAMBAHKAN INI
+
+    // Di method store(), sebelum return redirect:
+    $this->syncFotoKePublic();
+    return redirect()->route('admin.news.index')->with('success', ...);
+
+    // Di method update(), sebelum return redirect:
+    $this->syncFotoKePublic();
+    return redirect()->route('admin.news.index')->with('success', ...);
+
+
+============================================================
+3. FoodItemController.php
+   File: app/Http/Controllers/Admin/FoodItemController.php
+============================================================
+
+    class FoodItemController extends Controller
+    {
+        use AutoSyncFoto;   // <-- TAMBAHKAN INI
+
+    // Di method store(), sebelum return redirect:
+    $this->syncFotoKePublic();
+    return redirect()->route('admin.food-items.index')->with('success', ...);
+
+    // Di method update(), sebelum return redirect:
+    $this->syncFotoKePublic();
+    return redirect()->route('admin.food-items.index')->with('success', ...);
+
+
+============================================================
+4. ContentController.php
+   File: app/Http/Controllers/Admin/ContentController.php
+============================================================
+
+    class ContentController extends Controller
+    {
+        use AutoSyncFoto;   // <-- TAMBAHKAN INI
+
+    // Di setiap bagian yang ada ->store('contents', 'public'), 
+    // tambahkan sebelum return redirect:
+    $this->syncFotoKePublic();
+    return redirect()->route('admin.contents.index')->with('success', ...);
+
+
+SELESAI!
+--------
+Setelah semua controller diedit dan AutoSyncFoto.php diupload,
+setiap kali admin upload/edit foto, foto akan otomatis tersalin
+ke folder public hosting tanpa perlu jalankan script manual lagi.

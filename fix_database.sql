@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS healthy;
+CREATE DATABASE healthy CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

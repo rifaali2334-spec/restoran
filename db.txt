@@ -1,0 +1,234 @@
+DOKUMENTASI DATABASE - TASTY FOOD RESTAURANT
+===========================================
+
+ANALISIS HALAMAN:
+================
+
+1. HALAMAN HOME (welcome.blade.php):
+   - Hero section dengan title "HEALTHY", subtitle "TASTY FOOD", description, dan CTA button
+   - About section dengan title "TENTANG KAMI" dan description
+   - Food cards section (4 item makanan dengan gambar, nama "LOREM IPSUM", deskripsi)
+   - News section dengan title "BERITA KAMI" (1 berita utama + 4 berita kecil)
+   - Gallery section dengan title "GALERI KAMI" (6 foto galeri + button "LIHAT LEBIH BANYAK")
+   - Footer dengan contact info (email: tastyfood@gmail.com, phone: +62 812 3456 7890, address: Kota Bandung)
+   - Social media links (Facebook, Twitter)
+   - Footer links (Blog, Hewan, Galeri, Testimonial, Karir, dll)
+
+2. HALAMAN TENTANG (tentang.blade.php):
+   - Hero section dengan title
+   - About content dengan title dan 2 paragraf deskripsi
+   - Visi section dengan gambar dan text
+   - Misi section dengan gambar dan text
+
+3. HALAMAN BERITA (berita.blade.php):
+   - Hero section dengan title
+   - Featured news dengan gambar, title, content
+   - Berita lainnya (8 berita dalam grid)
+
+4. HALAMAN GALERI (galeri.blade.php):
+   - Hero section dengan title
+   - Carousel gallery (5 gambar besar)
+   - Grid gallery (12 gambar kecil)
+
+5. HALAMAN KONTAK (kontak.blade.php):
+   - Hero section dengan title
+   - Contact form (subject, name, email, message)
+   - Contact info (email, phone, location)
+   - Google Maps embed
+
+STRUKTUR DATABASE YANG DIBUTUHKAN:
+=================================
+
+1. TABLE: contents
+   ---------------
+   - id (bigint, primary key, auto increment)
+   - key (varchar 100, unique) - identifier untuk konten
+   - title (varchar 255, nullable) - judul konten
+   - content (text, nullable) - isi konten
+   - image (varchar 255, nullable) - path gambar
+   - meta_data (json, nullable) - data tambahan
+   - is_active (boolean, default true)
+   - created_at (timestamp)
+   - updated_at (timestamp)
+
+   CONTOH DATA:
+   - key: 'hero_title', title: 'HEALTHY', content: null
+   - key: 'hero_subtitle', title: 'TASTY FOOD', content: null
+   - key: 'hero_description', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...'
+   - key: 'hero_button_text', title: 'TENTANG KAMI', content: null
+   - key: 'hero_image', image: 'HOME.png'
+   - key: 'about_home_title', title: 'TENTANG KAMI', content: null
+   - key: 'about_home_description', content: 'Lorem ipsum dolor sit amet...'
+   - key: 'news_home_title', title: 'BERITA KAMI', content: null
+   - key: 'gallery_home_title', title: 'GALERI KAMI', content: null
+   - key: 'gallery_button_text', title: 'LIHAT LEBIH BANYAK', content: null
+   - key: 'about_page_title', title: 'TASTY FOOD', content: null
+   - key: 'about_page_description', content: 'Lorem ipsum dolor sit amet...'
+   - key: 'visi_title', title: 'VISI', content: null
+   - key: 'visi_content', content: 'Lorem ipsum dolor sit amet...'
+   - key: 'visi_image', image: 'path/to/visi.jpg'
+   - key: 'misi_title', title: 'MISI', content: null
+   - key: 'misi_content', content: 'Lorem ipsum dolor sit amet...'
+   - key: 'misi_image', image: 'path/to/misi.jpg'
+
+2. TABLE: news
+   -----------
+   - id (bigint, primary key, auto increment)
+   - title (varchar 255)
+   - slug (varchar 255, unique)
+   - excerpt (text, nullable) - ringkasan berita
+   - content (longtext)
+   - image (varchar 255, nullable)
+   - is_featured (boolean, default false) - untuk berita utama
+   - is_published (boolean, default true)
+   - published_at (timestamp, nullable)
+   - meta_title (varchar 255, nullable) - SEO
+   - meta_description (text, nullable) - SEO
+   - created_at (timestamp)
+   - updated_at (timestamp)
+
+3. TABLE: galleries
+   ----------------
+   - id (bigint, primary key, auto increment)
+   - title (varchar 255, nullable)
+   - image (varchar 255)
+   - description (text, nullable)
+   - alt_text (varchar 255, nullable) - untuk SEO
+   - is_featured (boolean, default false) - untuk carousel
+   - sort_order (integer, default 0) - untuk urutan tampil
+   - is_active (boolean, default true)
+   - created_at (timestamp)
+   - updated_at (timestamp)
+
+4. TABLE: food_items
+   -----------------
+   - id (bigint, primary key, auto increment)
+   - name (varchar 255)
+   - slug (varchar 255, unique)
+   - description (text, nullable)
+   - image (varchar 255, nullable)
+   - price (decimal 10,2, nullable)
+   - category (varchar 100, nullable) - appetizer, main_course, dessert, drink
+   - is_featured (boolean, default false) - untuk tampil di home
+   - is_available (boolean, default true)
+   - sort_order (integer, default 0)
+   - created_at (timestamp)
+   - updated_at (timestamp)
+
+5. TABLE: contact_messages
+   -----------------------
+   - id (bigint, primary key, auto increment)
+   - subject (varchar 255)
+   - name (varchar 255)
+   - email (varchar 255)
+   - message (longtext)
+   - is_read (boolean, default false)
+   - replied_at (timestamp, nullable)
+   - created_at (timestamp)
+   - updated_at (timestamp)
+
+6. TABLE: settings
+   ---------------
+   - id (bigint, primary key, auto increment)
+   - key (varchar 100, unique)
+   - value (text, nullable)
+   - type (enum: 'text', 'email', 'phone', 'url', 'json')
+   - group (varchar 50, nullable) - contact, social, general
+   - description (varchar 255, nullable)
+   - created_at (timestamp)
+   - updated_at (timestamp)
+
+   CONTOH DATA:
+   - key: 'contact_email', value: 'tastyfood@gmail.com', type: 'email', group: 'contact'
+   - key: 'contact_phone', value: '+62 812 3456 7890', type: 'phone', group: 'contact'
+   - key: 'contact_address', value: 'Kota Bandung, Jawa Barat', type: 'text', group: 'contact'
+   - key: 'facebook_url', value: '#', type: 'url', group: 'social'
+   - key: 'twitter_url', value: '#', type: 'url', group: 'social'
+   - key: 'google_maps_embed', value: 'iframe_code', type: 'text', group: 'contact'
+   - key: 'footer_description', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...', type: 'text', group: 'general'
+   - key: 'company_name', value: 'Tasty Food', type: 'text', group: 'general'
+   - key: 'copyright_text', value: 'Copyright ©2023 All rights reserved', type: 'text', group: 'general'
+
+7. TABLE: users (sudah ada)
+   --------
+   - id (bigint, primary key, auto increment)
+   - name (varchar 255)
+   - email (varchar 255, unique)
+   - email_verified_at (timestamp, nullable)
+   - password (varchar 255)
+   - role (enum: 'admin', 'editor', default 'editor')
+   - is_active (boolean, default true)
+   - remember_token (varchar 100, nullable)
+   - created_at (timestamp)
+   - updated_at (timestamp)
+
+FITUR ADMIN PANEL YANG DIBUTUHKAN:
+==================================
+
+1. DASHBOARD
+   - Statistik: Total berita, galeri, pesan kontak
+   - Berita terbaru
+   - Pesan kontak terbaru
+
+2. KELOLA KONTEN
+   - Edit konten statis (hero, about, visi, misi)
+   - Upload gambar untuk setiap konten
+
+3. KELOLA BERITA
+   - CRUD berita
+   - Set featured news
+   - Upload gambar berita
+   - SEO meta tags
+
+4. KELOLA GALERI
+   - CRUD galeri
+   - Set featured untuk carousel
+   - Drag & drop untuk sorting
+   - Bulk upload
+
+5. KELOLA MENU MAKANAN
+   - CRUD food items
+   - Set featured untuk home page
+   - Kategori makanan
+   - Upload gambar
+
+6. PESAN KONTAK
+   - View semua pesan
+   - Mark as read
+   - Reply pesan (opsional)
+
+7. PENGATURAN
+   - Contact information
+   - Social media links
+   - Google Maps embed
+   - General settings
+
+KEUNTUNGAN STRUKTUR INI:
+=======================
+
+✅ FLEKSIBEL - Admin bisa edit semua konten tanpa coding
+✅ SCALABLE - Mudah tambah konten baru
+✅ SEO FRIENDLY - Meta tags, slugs, alt text
+✅ USER FRIENDLY - Interface admin yang mudah
+✅ MAINTAINABLE - Struktur database yang clean
+✅ PERFORMANCE - Optimized queries dengan indexing
+✅ SECURITY - Role-based access control
+
+MIGRATION ORDER:
+===============
+1. users (sudah ada)
+2. contents
+3. settings
+4. news
+5. galleries
+6. food_items
+7. contact_messages
+
+SEEDER DATA:
+===========
+- Default admin user
+- Basic content (hero, about, visi, misi)
+- Contact settings
+- Sample news (5-10 berita)
+- Sample gallery (15-20 foto)
+- Sample food items (8-12 makanan)

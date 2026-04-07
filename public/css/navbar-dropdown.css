@@ -1,0 +1,106 @@
+/* ===== NAVBAR DROPDOWN FIX ===== */
+
+@media (max-width: 768px) {
+    .header-container {
+        position: relative;
+    }
+    
+    .header .nav,
+    .header.other-page .nav,
+    .nav {
+        position: absolute !important;
+        top: 55px !important;
+        right: 10px !important;
+        left: auto !important;
+        width: 55px !important;
+        height: auto !important;
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        flex-direction: column !important;
+        gap: 0 !important;
+        padding: 2px 0 !important;
+        max-height: 0 !important;
+        overflow: hidden !important;
+        transition: max-height 0.3s ease !important;
+        box-shadow: none !important;
+        border-radius: 4px !important;
+        z-index: 999 !important;
+        border: none !important;
+    }
+    
+    .nav.active {
+        max-height: 350px !important;
+    }
+    
+    .header .nav a,
+    .header.other-page .nav a,
+    .nav a {
+        padding: 4px 5px !important;
+        font-size: 7px !important;
+        font-weight: 600 !important;
+        color: #333 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0px !important;
+        border-bottom: none !important;
+        background: transparent !important;
+        transition: background 0.2s ease !important;
+        display: block !important;
+        text-align: left !important;
+        border-radius: 0 !important;
+        min-width: auto !important;
+    }
+    
+    .header .nav a:hover,
+    .header.other-page .nav a:hover,
+    .nav a:hover {
+        background: rgba(0,0,0,0.05) !important;
+        transform: none !important;
+    }
+    
+    .nav a:last-child {
+        border-bottom: none !important;
+    }
+    
+    .header.other-page .nav {
+        background: rgba(0, 0, 0, 0.9) !important;
+        backdrop-filter: blur(10px) !important;
+    }
+    
+    .header.other-page .nav a {
+        color: white !important;
+        background: transparent !important;
+        border-bottom-color: rgba(255,255,255,0.1) !important;
+    }
+    
+    .header.other-page .nav a:hover {
+        background: rgba(255,255,255,0.1) !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .header .nav,
+    .header.other-page .nav,
+    .nav {
+        width: 50px !important;
+        top: 50px !important;
+        right: 5px !important;
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        border: none !important;
+        padding: 2px 0 !important;
+        border-radius: 4px !important;
+        box-shadow: none !important;
+    }
+    
+    .header .nav a,
+    .header.other-page .nav a,
+    .nav a {
+        padding: 4px 5px !important;
+        font-size: 7px !important;
+        background: transparent !important;
+        letter-spacing: 0px !important;
+        border-bottom: none !important;
+    }
+}

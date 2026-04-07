@@ -1,0 +1,6 @@
+@echo off
+echo Running migrations...
+php artisan migrate
+echo.
+echo Done! Press any key to exit...
+pause
